@@ -1,7 +1,9 @@
 # NumberSystem
 
 
+
 ## A more consistent number system
+
 ```
 1 - 1 1s
 2 - 1s
