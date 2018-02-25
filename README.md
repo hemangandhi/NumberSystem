@@ -1,33 +1,49 @@
 # NumberSystem
 
+## More consistent number system
 
+## Section 1: Definitions
 
-## A more consistent number system
+We define the following operators on the set of digits (any base is fine, we use 10 hereafter):
+ - Left t: `ty = -y` where `y` is a single digit. This operator is not applied unless it
+ is the leftmost character or preceeded by an `a`.
+ - Right t: `xt = 10 * x`
+ - Binary a: `xay = x^(-y)`
+ - Unary a: `ay = -(y)`.
+These are in order of precedence.
 
-```
-1 - 1 1s
-2 - 1s
-3 - 1s
-4 - 1s
-5 - 1s
-```
+We pronounce `a` anti and `t` as tee (like ty in twenty).
 
-```
-10 - 1ty
-11 - 1ty - 1s
-12 - 1ty  - 2 1s
-22 - 2ty - 2 1s
-100 - 1ty 1ty
-```
-120 - 1ty 1ty 2 - 1ty
+The binary `a` is right associative.
+A right `t` followed by a digit `ytx` is interpreted as `y * 10 + x`.
+Consecutive digits imply summation of the two component numbers.
+`t` is usually the right `t`. It is the left `t` it is either the leftmost
+character or has an `a` to the right.
 
-121 -  1ty 1ty - 2 - 1ty - 1 - 1s
+We belive the above is enough to define:
+ - `x aa y = x ^ y` (we treat the right `a` as unary and the left one as binary).
+ - `x ta y = (10 x) ^ -y`
+ - `x taa y = (10 x) ^ y`.
 
-Decimals
-1.13 - 1 1s _ 1 anti - 1ty 3 anti  - 1ty 1ty OR 1 1s _ 1ty 3 1 anti 1ty 1ty
-(1 + 1 * 10^-1 + 3 * 10^-2 OR 1 + 13 * 10^-2)
+## Section 11: Examples
 
-1.3  - 1 1s _ 3 anti 1ty
+`11 = 2` since the adjacent `1` digits add.
 
-9.81 
-= 9 1s _ 8 anti 1ty 1 anti 1ty 1ty
+`95a15a15a15a1 = 9.8` since the 4 `5a1`s add to give 4/5 = 8/10.
+
+`1tt2t1aa2a1= 11` (we mean eleven) since the rightmost `a` gives 1/2,
+then the `aa` gives `1tt2t1` to the 1/2 (so square root of `1tt2t1`),
+and `1tt2t1` is 11 since all the `t`s are right `t`s.
+
+`2aa2a1 = sqrt(2)` since `2a1` is a half so we have the square root of 2.
+
+So now, we note that algebraic real numbers are probably all expressible in this.
+By we've yet to use the left `t`...
+
+`t1a2a1 = i` (yes, the imaginary unit), since the left `t` negates the 1 and
+we take its square root.
+
+So far, we probably get Q[i], the complex numbers with rational coefficients.
+But now:
+
+`2at1a2a1 = 2^i = cos(ln(2)) + i sin(ln(2))` which we're not so sure about...
