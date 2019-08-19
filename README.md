@@ -5,12 +5,12 @@
 ## Section 1: Definitions
 
 We define the following operators on the set of digits (any base is fine, we use 10 hereafter):
- - Left t: `ty = -y` where `y` is a single digit. This operator is not applied unless it
+ - Left t: `ty = -y` where `y` is some number. This operator is not applied unless it
  is the leftmost character or preceeded by an `a`.
- - Right t: `xt = 10 * x`
  - Binary a: `xay = x^(-y)`
+ - Right t: `xt = 10 * x`
  - Unary a: `ay = -(y)`.
-These are in order of precedence.
+These are in order of precedence: later the more predecent.
 
 We pronounce `a` anti and `t` as tee (like ty in twenty).
 
@@ -33,7 +33,7 @@ We belive the above is enough to define:
 
 `1tt2t1aa2a1= 11` (we mean eleven) since the rightmost `a` gives 1/2,
 then the `aa` gives `1tt2t1` to the 1/2 (so square root of `1tt2t1`),
-and `1tt2t1` is 11 since all the `t`s are right `t`s.
+and `1tt2t1` is 121 since all the `t`s are right `t`s.
 
 `2aa2a1 = sqrt(2)` since `2a1` is a half so we have the square root of 2.
 
@@ -47,3 +47,15 @@ So far, we probably get Q[i], the complex numbers with rational coefficients.
 But now:
 
 `2at1a2a1 = 2^i = cos(ln(2)) + i sin(ln(2))` which we're not so sure about...
+
+## Section 111: BNF
+
+`Digit` is a set of terminals that can vary by base (as long as `a` and `t` aren't rendered ambiguous).
+
+```
+Sum := NumberLT | NumberLT Sum
+NumberLT := t NumberBA | NumberBA
+NumberBA := Sum2 a NumberLT | Sum2 | a NumberBA
+Sum2 := NumberRT | NumberRT NumberRT
+NumberRT := NumberRT t | Digit
+```
