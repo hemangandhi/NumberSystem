@@ -78,6 +78,7 @@ def main_loop():
         err = validate(line)
         if err != "":
             print(err)
+            line = input("number (quit to quit)> ")
             continue
         try:
             print(evaluate(line))
