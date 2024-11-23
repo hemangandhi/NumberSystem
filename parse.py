@@ -12,7 +12,7 @@ def make_logger():
             indent += 1
             value = fn(*args)
             indent -= 1
-            if debug: print(" "*indent, "Got back", value)
+            if debug: print(" "*indent, "Got back", value, "from", fn.__name__)
             return value
         return wrapt
     return wrap_log
