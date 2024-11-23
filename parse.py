@@ -1,8 +1,11 @@
+from functools import wraps
+
 debug = False
 
 def make_logger():
     indent = 0
     def wrap_log(fn):
+        @wraps(fn)
         def wrapt(*args):
             nonlocal indent
             if debug: print(" "*indent, "Called {} with args {}".format(fn.__name__, args))
@@ -16,10 +19,10 @@ def make_logger():
 
 wrap_log = make_logger()
 
-def validate(st):
+def validate(st: str) -> str:
     return "\n".join("At {}: invalid char {}".format(*e) for e in filter(lambda x: not x[1].isdigit() and x[1] not in ['a', 't'], enumerate(st)))
 
-def evaluate(stream):
+def evaluate(stream: list[str]) -> complex | float:
     @wrap_log
     def e_sum(stream, start):
         if start >= len(stream): return 0
@@ -75,11 +78,11 @@ def main_loop():
         err = validate(line)
         if err != "":
             print(err)
-        else:
-            try:
-                print(evaluate(line))
-            except ValueError as e:
-                print(e.message)
+            continue
+        try:
+            print(evaluate(line))
+        except ValueError as e:
+            print(e.message)
         line = input("number (quit to quit)> ")
 
 if __name__ == "__main__":
