@@ -24,7 +24,7 @@ def validate(st: str) -> str:
 
 def evaluate(stream: list[str]) -> complex | float:
     @wrap_log
-    def e_sum(stream, start):
+    def e_sum(stream, start) -> complex | float:
         if start >= len(stream): return 0
         value, start = number_lt(stream, start)
         if start < len(stream):
@@ -32,14 +32,14 @@ def evaluate(stream: list[str]) -> complex | float:
         return value
 
     @wrap_log
-    def number_lt(stream, start):
+    def number_lt(stream: list[str], start: int) -> tuple[complex | float, int]:
         if stream[start] == 't':
             value, start = number_ba(stream, start + 1)
             return -value, start
         return number_ba(stream, start)
 
     @wrap_log
-    def number_ba(stream, start):
+    def number_ba(stream: list[str], start: int) -> tuple[complex | float, int]:
         if stream[start] == 'a':
             value, start = number_ba(stream, start+1)
             return -value, start
@@ -51,7 +51,7 @@ def evaluate(stream: list[str]) -> complex | float:
         return base, a_idx
 
     @wrap_log
-    def e_sum2(stream, start):
+    def e_sum2(stream: list[str], start: int) -> tuple[complex | float, int]:
         acc = 0
         while start < len(stream) and stream[start] != 'a':
             value, start = number_rt(stream, start)
@@ -59,7 +59,7 @@ def evaluate(stream: list[str]) -> complex | float:
         return acc, start
 
     @wrap_log
-    def number_rt(stream, start):
+    def number_rt(stream: list[str], start: int) -> tuple[complex | float, int]:
         # easier approach: parse Digit + t*
         if not stream[start].isdigit():
             raise ValueError("Expected digit at {}".format(start))
