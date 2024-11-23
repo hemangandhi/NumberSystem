@@ -25,7 +25,7 @@ def validate(st: str) -> str:
 def evaluate(stream: list[str]) -> complex | float:
     @wrap_log
     def e_sum(stream, start) -> complex | float:
-        if start >= len(stream): return 0
+        if start >= len(stream): return 0.0
         value, start = number_lt(stream, start)
         if start < len(stream):
             value += e_sum(stream, start)
@@ -52,7 +52,7 @@ def evaluate(stream: list[str]) -> complex | float:
 
     @wrap_log
     def e_sum2(stream: list[str], start: int) -> tuple[complex | float, int]:
-        acc = 0
+        acc = 0.0
         while start < len(stream) and stream[start] != 'a':
             value, start = number_rt(stream, start)
             acc += value
@@ -63,7 +63,7 @@ def evaluate(stream: list[str]) -> complex | float:
         # easier approach: parse Digit + t*
         if not stream[start].isdigit():
             raise ValueError("Expected digit at {}".format(start))
-        value = int(stream[start])
+        value = float(stream[start])
         start = start + 1
         while start < len(stream) and stream[start] == 't':
             value *= 10
