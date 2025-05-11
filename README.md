@@ -53,9 +53,9 @@ But now:
 `Digit` is a set of terminals that can vary by base (as long as `a` and `t` aren't rendered ambiguous).
 
 ```
-Sum := NumberLT | NumberLT Sum
-NumberLT := t NumberBA | NumberBA
-NumberBA := Sum2 a NumberLT | Sum2 | a NumberBA
+Sum := t NumberBA | NumberBA
+NumberBA := Sum2 a Sum | Sum2 | a NumberBA
 Sum2 := NumberRT | NumberRT NumberRT
-NumberRT := NumberRT t | Digit
+NumberRT := NumberRT NumberLT | NumberLT
+NumberLT := t Digit | Digit
 ```

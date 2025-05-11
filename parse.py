@@ -32,13 +32,6 @@ def evaluate(stream: list[str]) -> complex | float:
         return value
 
     @wrap_log
-    def number_lt(stream: list[str], start: int) -> tuple[complex | float, int]:
-        if stream[start] == 't':
-            value, start = number_ba(stream, start + 1)
-            return -value, start
-        return number_ba(stream, start)
-
-    @wrap_log
     def number_ba(stream: list[str], start: int) -> tuple[complex | float, int]:
         if stream[start] == 'a':
             value, start = number_ba(stream, start+1)
@@ -47,7 +40,7 @@ def evaluate(stream: list[str]) -> complex | float:
         base, a_idx = e_sum2(stream, start)
         if a_idx < len(stream) and stream[a_idx] == 'a':
             exp, start = number_lt(stream, a_idx + 1)
-            return pow(base, -exp), start
+            return wrap_log(pow)(base, -exp), start
         return base, a_idx
 
     @wrap_log
@@ -69,6 +62,14 @@ def evaluate(stream: list[str]) -> complex | float:
             value *= 10
             start = start + 1
         return value, start
+
+    @wrap_log
+    def number_lt(stream: list[str], start: int) -> tuple[complex | float, int]:
+        if stream[start] == 't':
+            value, start = number_ba(stream, start + 1)
+            return -value, start
+        return number_ba(stream, start)
+
 
     return e_sum(stream, 0)
 
